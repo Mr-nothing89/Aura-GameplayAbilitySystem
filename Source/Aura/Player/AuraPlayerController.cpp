@@ -46,6 +46,8 @@ void AAuraPlayerController::SetupInputComponent()
 	if(UAuraInputComponent* AuraInputComponent = CastChecked<UAuraInputComponent>(InputComponent))
 	{
 		AuraInputComponent->BindAction(MoveAction,ETriggerEvent::Triggered,this,&AAuraPlayerController::Move);
+		AuraInputComponent->BindAbilityActions(InputConfig,this,&AAuraPlayerController::AbilityInputTagPressed,
+			&AAuraPlayerController::AbilityInputTagReleased,&AAuraPlayerController::AbilityInputTagHeld);
 	}
 }
 
@@ -80,4 +82,19 @@ void AAuraPlayerController::CursorTrace()
 		if(LastActor) LastActor->UnHighlightActor();
 		if(ThisActor) ThisActor->HighlightActor();
 	}
+}
+
+void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
+{
+	GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Red, *InputTag.ToString());
+}
+
+void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
+{
+	GEngine->AddOnScreenDebugMessage(2, 3.f, FColor::Blue, *InputTag.ToString());
+}
+
+void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
+{
+	GEngine->AddOnScreenDebugMessage(3, 3.f, FColor::Green, *InputTag.ToString());
 }
