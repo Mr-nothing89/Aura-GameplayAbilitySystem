@@ -27,8 +27,8 @@ public:
 	void AbilityInputTagReleased(const FGameplayTag& InputTag);
 protected:
 
-	UFUNCTION()
-	void EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec,
+	UFUNCTION(Client,Reliable)
+	void ClientEffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec,
 		FActiveGameplayEffectHandle ActiveEffectHandle);
 	
 };
