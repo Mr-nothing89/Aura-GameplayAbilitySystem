@@ -108,4 +108,11 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FString("Resistance to Lightning damage"));
 	GameplayTags.Attributes_Resistance_Physical = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Resistance.Physical"),
 		FString("Resistance to Physical damage"));
+
+	/*
+	 *Effects
+	 */
+
+	GameplayTags.Effects_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Effects.HitReact"),
+		FString("Tag Granted when Hit Reacting"));
 }
