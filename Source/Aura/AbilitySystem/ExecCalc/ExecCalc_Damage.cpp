@@ -98,6 +98,32 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	const float EffectiveArmorCoefficient = EffectiveArmorCurve->Eval(TargetCombatInterface->GetPlayerLevel());
 	//Armor ignores a percentage of incoming damage
 	Damage *= (100 - EffectiveArmor * EffectiveArmorCoefficient) / 100.f;
+
+	float SourceCriticalHitChance = 0.f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().CriticalHitChanceDef,EvaluationParameters,
+		SourceCriticalHitChance);
+	SourceCriticalHitChance = FMath::Max<float>(SourceCriticalHitChance, 0.f);
+
+	float TargetCriticalHitResistance = 0.f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().CriticalHitResistanceDef,EvaluationParameters,
+		TargetCriticalHitResistance);
+	TargetCriticalHitResistance = FMath::Max<float>(TargetCriticalHitResistance, 0.f);
+
+	float SourceCriticalHitDamage = 0.f;
+	ExecutionParams.AttemptCalculateCapturedAttributeMagnitude(DamageStatics().CriticalHitDamageDef,EvaluationParameters,
+		SourceCriticalHitDamage);
+	SourceCriticalHitDamage = FMath::Max<float>(SourceCriticalHitDamage, 0.f);
+
+	const FRealCurve* CriticalHitResistanceCurve = CharacterClassInfo->DamageCalculationCoefficients->FindCurve(
+		"CriticalHitResistance", FString());
+	const float CriticalHitResistanceCoefficient = CriticalHitResistanceCurve->Eval(TargetCombatInterface->GetPlayerLevel());
+
+	// Critical Hit Resistance reduces Critical Hit Chance by a certain percentage
+	const float EffectiveCriticalHitChance = SourceCriticalHitChance - TargetCriticalHitResistance * CriticalHitResistanceCoefficient;
+	const bool bCriticalHit = FMath::RandRange(1,100) < EffectiveCriticalHitChance;
+
+	// Double damage plus a bonus if critical hit
+	Damage = bCriticalHit ? 2.f * Damage + SourceCriticalHitDamage : Damage;
 	
 
 	const FGameplayModifierEvaluatedData EvaluatedData(UAuraAttributeSet::GetIncomingDamageAttribute(),EGameplayModOp::Additive,Damage);
