@@ -50,6 +50,8 @@ struct FAuraGameplayTags
 	FGameplayTag Damage_Arcane;
 	FGameplayTag Damage_Physical;
 
+	TMap<FGameplayTag,FGameplayTag> DamageTypesToResistances;
+
 	FGameplayTag Effects_HitReact;
 
 	private:
