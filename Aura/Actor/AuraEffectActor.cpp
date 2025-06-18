@@ -89,7 +89,7 @@ void AAuraEffectActor::OnEndOverlap(AActor* TargetActor)
 		}
 
 		TArray<FActiveGameplayEffectHandle> HandlesToRemove;
-		for (TTuple<FActiveGameplayEffectHandle, TWeakObjectPtr<UAbilitySystemComponent>> HandlePair : ActiveEffectHandles)
+		for (TTuple<FActiveGameplayEffectHandle,UAbilitySystemComponent*> HandlePair : ActiveEffectHandles)
 		{
 			if (TargetASC == HandlePair.Value)
 			{

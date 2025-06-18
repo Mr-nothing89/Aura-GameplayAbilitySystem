@@ -72,7 +72,7 @@ protected:
 	EEffectRemovalPolicy InfiniteEffectRemovalPolicy = EEffectRemovalPolicy::RemoveOnEndOverlap;
 
 	
-	TMap<FActiveGameplayEffectHandle,TWeakObjectPtr<UAbilitySystemComponent>> ActiveEffectHandles;
+	TMap<FActiveGameplayEffectHandle,UAbilitySystemComponent*> ActiveEffectHandles;
 
 private:
 
