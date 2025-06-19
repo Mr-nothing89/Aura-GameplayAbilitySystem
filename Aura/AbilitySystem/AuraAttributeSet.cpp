@@ -6,7 +6,6 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Net/UnrealNetwork.h"
 #include "GameplayEffectExtension.h"
-#include "Aura/Actor/AuraEffectActor.h"
 #include "GameFramework/Character.h"
 
 
