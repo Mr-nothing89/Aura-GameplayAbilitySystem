@@ -11,7 +11,10 @@
 // Sets default values
 AAuraEffectActor::AAuraEffectActor()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
+	bReplicates = true;
+	SetReplicatingMovement(true);
+	SetNetUpdateFrequency(100.f);
 
 	RotatingMovement = CreateDefaultSubobject<URotatingMovementComponent>("RotatingMovement");
 	RotatingMovement->RotationRate = FRotator(0.f,50.f,0.f);
