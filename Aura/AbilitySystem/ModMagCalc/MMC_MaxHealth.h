@@ -7,7 +7,7 @@
 #include "MMC_MaxHealth.generated.h"
 
 /**
- * 
+ * Single attribute
  */
 UCLASS()
 class AURA_API UMMC_MaxHealth : public UGameplayModMagnitudeCalculation
