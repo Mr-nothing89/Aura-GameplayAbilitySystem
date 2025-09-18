@@ -6,6 +6,7 @@
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "AuraAbilitySystemLibrary.generated.h"
 
+class UCharacterClassInfoDataAsset;
 class UAbilitySystemComponent;
 enum class ECharacterClass : uint8;
 class UAttributeMenuWidgetController;
@@ -32,5 +33,7 @@ public:
 
 	UFUNCTION(BlueprintCallable,Category="AuraAbilitySystemLibrary|CharacterClassDefaults")
 	static void GiveStartupAbilitites(const UObject* WorldContextObject,UAbilitySystemComponent* ASC);
-	
+
+	UFUNCTION(BlueprintPure, Category="AuraAbilitySystemLibrary|CharacterClassDefaults")
+	static UCharacterClassInfoDataAsset* GetCharacterClassInfo(const UObject* WorldContextObject);
 };
